@@ -1,0 +1,5 @@
+target
+$LOCALAPPDATA
+ServerHelperClass.*
+*.swp
+main.js
