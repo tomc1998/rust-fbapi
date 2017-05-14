@@ -8,6 +8,6 @@ authors = ["Thomas Cheng <thomascheng1998@googlemail.com>"]
 hyper = "*"
 hyper-native-tls = "*"
 
-serde = "*"
-serde_derive = "*"
-serde_json = "*"
+serde = "0.9.11"
+serde_derive = "0.9.11"
+serde_json = "0.9.9"
