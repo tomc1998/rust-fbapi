@@ -23,6 +23,7 @@ use error::*;
 /// A wrapper around a hyper::client::Client.  An Arc wrapping FBApi can be
 /// cloned to multiple threads, as it implements Send.
 
+#[derive(Debug)]
 pub struct FBApi {
   api_version: (u8, u8),
   client: Client,
