@@ -5,6 +5,13 @@ Facebook graph API rest implementation in rust.
 Not even close! This library is only currently used for personal use, and I'll
 add features to it as I need them. 
 
+# Abusing Rust's type sytem
+Currently graph edges are just 'stringly typed', so it's easy to get runtime
+errors by attempting to populate a struct which doesn't match the edge
+requested. In the future, this should be solved using enums for edge URIs, with
+a custom 'request by string' method for complex requests that aren't supported
+by the type system.
+
 # Running tests
 To run the tests, a valid user access token is needed. This is currently
 hardcoded into the tests/mod.rs file, as a static variable called
