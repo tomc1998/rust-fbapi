@@ -68,6 +68,40 @@ impl FBApi {
     let mut buf = String::new();
     res.read_to_string(&mut buf).unwrap();
 
+    // Parse into a value map first
+    let v_map = try!(serde_json::from_str(&buf) as Result<serde_json::Value, _>);
+    match v_map {
+      serde_json::Value::Object(map) => {
+        let error = map.get("error");
+        if error.is_some() {
+          let error = error.unwrap();
+          if error.is_object() {
+            let error_map = error.as_object().unwrap();
+            // Parse type and message
+            let e_type = try!(error_map.get("type").ok_or(
+                GetModelError::UnknownFBError(
+                  "Unknown error structure: ".to_owned(), buf.clone())));
+            let e_message = try!(error_map.get("message").ok_or(
+                GetModelError::UnknownFBError(
+                  format!("Unknown error structure of type {}", e_type), buf.clone())));
+            if !e_type.is_string() || !e_message.is_string() {
+              return Err(GetModelError::UnknownFBError(
+                  "Unknown error structure: ".to_owned(), buf));
+            }
+            let e_type = e_type.as_str().unwrap();
+            let e_message = e_message.as_str().unwrap();
+            return if e_type == "OAuthException" {
+              Err(GetModelError::AccessTokenInvalid(e_message.to_owned()))
+            }
+            else {
+              Err(GetModelError::UnknownFBError(e_type.to_owned(), e_message.to_owned()))
+            }
+          }
+        }
+      },
+      _ => ()
+    }
+
     let data = try!(serde_json::from_str(&buf) as Result<T, _>);
     return Ok(data);
   }
