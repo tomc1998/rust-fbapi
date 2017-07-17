@@ -3,3 +3,4 @@ $LOCALAPPDATA
 ServerHelperClass.*
 *.swp
 main.js
+Cargo.lock

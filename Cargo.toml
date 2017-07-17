@@ -5,8 +5,8 @@ authors = ["Thomas Cheng <thomascheng1998@googlemail.com>"]
 
 [dependencies]
 
-hyper = "*"
-hyper-native-tls = "*"
+hyper = "0.10"
+hyper-native-tls = "0.2.4"
 
 serde = "0.9.11"
 serde_derive = "0.9.11"

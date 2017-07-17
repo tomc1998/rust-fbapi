@@ -6,9 +6,9 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-use hyper::net::HttpsConnector;
 use hyper_native_tls::NativeTlsClient;
 use hyper::client::Client;
+use hyper::net::HttpsConnector;
 
 pub mod model;
 pub mod graph;
